@@ -16,11 +16,11 @@ export function populateUser(isReturning : boolean, userName: string ) {
     userNameDisplay.innerHTML = userName
 }
 
-export function showDetails(value: boolean | Permissions, element : HTMLDivElement, price: number) {
+export function showDetails(value: boolean | Permissions, card: HTMLDivElement, price: number) {
     if (value) {
         const priceDisplay = document.createElement('div')
         priceDisplay.innerHTML = price.toString() + '/night'
-        element.appendChild(priceDisplay)
+        card.appendChild(priceDisplay)
     }
 }
 

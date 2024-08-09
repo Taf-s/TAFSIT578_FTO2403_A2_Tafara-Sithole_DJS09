@@ -111,7 +111,7 @@ for (let i = 0; i < properties.length; i++) {
     const image = document.createElement('img')
     image.setAttribute('src', properties[i].image)
     card.appendChild(image)
-    showDetails(you.permissions, card, properties[i].price)
+    showDetails(you.permissions, card, properties[i].price) // pass the card element as the second parameter
     propertyContainer.appendChild(card)
 }
 
