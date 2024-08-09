@@ -1,7 +1,7 @@
 import { showReviewTotal, populateUser, showDetails, getTopTwoReviews} from './utils'
 import { Permissions , LoyaltyUser } from './enums'
 import { Review, Property } from './interfaces'
-import MainProperty from './classes.ts' 
+import MainProperty from './classes' 
 const propertyContainer = document.querySelector('.properties')
 const reviewContainer = document.querySelector('.reviews')
 const container = document.querySelector('.container')
