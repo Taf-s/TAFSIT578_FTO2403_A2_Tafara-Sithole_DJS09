@@ -98,41 +98,55 @@ const properties : Property[] = [
 ]
 
 // Functions
-showReviewTotal(reviews.length, reviews[0].name, reviews[0].loyaltyUser)
+showReviewTotal(reviews.length, reviews[0].name, reviews[0].loyaltyUser);
 
-populateUser(you.isReturning, you.firstName)
+populateUser(you.isReturning, you.firstName);
 
 // Add the properties
 for (let i = 0; i < properties.length; i++) {
-    const card = document.createElement('div')
-    card.classList.add('card')
-    card.innerHTML = properties[i].title
-    const image = document.createElement('img')
-    image.setAttribute('src', properties[i].image)
-    card.appendChild(image)
-    showDetails(you.permissions, card, properties[i].price)
-    propertyContainer.appendChild(card)
-}
-
-let count = 0
-function addReviews(array : Review[]) : void {
-    if (!count ) {
-        count++
-        const topTwo = getTopTwoReviews(array)
-        for (let i = 0; i < topTwo.length; i++) {
-            const card = document.createElement('div')
-            card.classList.add('review-card')
-            card.innerHTML = topTwo[i].stars + ' stars from ' + topTwo[i].name
-            reviewContainer.appendChild(card)
-        }
-        container.removeChild(button) 
+    const card = document.createElement('div');
+    card.classList.add('card');
+    card.innerHTML = properties[i].title;
+    const image = document.createElement('img');
+    image.setAttribute('src', properties[i].image);
+    card.appendChild(image);
+    showDetails(you.permissions, card, properties[i].price);
+    if (propertyContainer) {
+        propertyContainer.appendChild(card);
     }
 }
 
-button.addEventListener('click', () => addReviews(reviews))
+let count = 0;
+function addReviews(array: Review[]): void {
+    if (!count) {
+        count++;
+        const topTwo = getTopTwoReviews(array);
+        for (let i = 0; i < topTwo.length; i++) {
+            const card = document.createElement('div');
+            card.classList.add('review-card');
+            card.innerHTML = topTwo[i].stars + ' stars from ' + topTwo[i].name;
+            if (reviewContainer) {
+                reviewContainer.appendChild(card);
+            }
+        }
+        if (container && button) {
+            container.removeChild(button);
+        }
+    }
+}
 
-let currentLocation : [string, string, number] = ['London', '11.03', 17]
-footer.innerHTML = currentLocation[0] + ' ' + currentLocation[1] + ' ' + currentLocation[2] + '°'
+if (button) {
+    button.addEventListener('click', () => {
+        if (reviews.length > 0) {
+            addReviews(reviews);
+        }
+    });
+}
+
+let currentLocation: [string, string, number] = ['London', '11.03', 17];
+if (footer) {
+    footer.innerHTML = currentLocation[0] + ' ' + currentLocation[1] + ' ' + currentLocation[2] + '°';
+}
 
 
 let yourMainProperty = new MainProperty(
