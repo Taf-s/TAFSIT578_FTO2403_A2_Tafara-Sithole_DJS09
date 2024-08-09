@@ -1,13 +1,28 @@
-import { showReviewTotal, populateUser, showDetails } from './utils'
-import { Permissions , LoyaltyUser } from './enums'
-import { Price, Country } from './types'
+
+import { showReviewTotal, populateUser, showDetails, getTopTwoReviews} from './utils'
+import { Price, Country} from './types'
+import { Review } from './interfaces'
 const propertyContainer = document.querySelector('.properties')
+const reviewContainer = document.querySelector('.reviews')
+const container = document.querySelector('.container')
+const button = document.querySelector('button')
 const footer = document.querySelector('.footer')
 
 let isLoggedIn: boolean
 
+enum Permissions {
+    ADMIN = 'ADMIN', 
+    READ_ONLY = 'READ_ONLY'
+}
+
+enum LoyaltyUser {
+    GOLD_USER = 'GOLD_USER',
+    SILVER_USER = 'SILVER_USER',
+    BRONZE_USER = 'BRONZE_USER'
+}
+
 // Reviews
-const reviews : any[] = [
+const reviews: Review[] = [
     {
         name: 'Sheia',
         stars: 5,
@@ -25,7 +40,6 @@ const reviews : any[] = [
         stars: 4,
         loyaltyUser: LoyaltyUser.SILVER_USER,
         date: '27-03-2021',
-        description: 'Great hosts, location was a bit further than said.'
     },
 ]
 
@@ -47,7 +61,7 @@ const properties : {
         firstLine: string;
         city: string;
         code: number;
-        country: Country;
+        country: string;
     };
     contact: [ number, string ];
     isAvailable: boolean;
@@ -110,6 +124,22 @@ for (let i = 0; i < properties.length; i++) {
     propertyContainer.appendChild(card)
 }
 
+let count = 0
+function addReviews(array: Review[]) : void {
+    if (!count ) {
+        count++
+        const topTwo = getTopTwoReviews(array)
+        for (let i = 0; i < topTwo.length; i++) {
+            const card = document.createElement('div')
+            card.classList.add('review-card')
+            card.innerHTML = topTwo[i].stars + ' stars from ' + topTwo[i].name
+            reviewContainer.appendChild(card)
+        }
+        container.removeChild(button) 
+    }
+}
+
+button.addEventListener('click', () => addReviews(reviews))
+
 let currentLocation : [string, string, number] = ['London', '11.03', 17]
 footer.innerHTML = currentLocation[0] + ' ' + currentLocation[1] + ' ' + currentLocation[2] + '°'
-
