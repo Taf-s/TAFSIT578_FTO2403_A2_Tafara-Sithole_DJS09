@@ -1,5 +1,6 @@
 import { showReviewTotal, populateUser, showDetails } from './utils'
 import { Permissions , LoyaltyUser } from './enums'
+import { Price, Country } from './types'
 const propertyContainer = document.querySelector('.properties')
 const footer = document.querySelector('.footer')
 
@@ -46,7 +47,7 @@ const properties : {
         firstLine: string;
         city: string;
         code: number;
-        country: string;
+        country: Country;
     };
     contact: [ number, string ];
     isAvailable: boolean;
@@ -111,3 +112,4 @@ for (let i = 0; i < properties.length; i++) {
 
 let currentLocation : [string, string, number] = ['London', '11.03', 17]
 footer.innerHTML = currentLocation[0] + ' ' + currentLocation[1] + ' ' + currentLocation[2] + '°'
+
