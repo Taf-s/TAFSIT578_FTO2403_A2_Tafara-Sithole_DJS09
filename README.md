@@ -1,6 +1,6 @@
 # DJS09: Couch Surfing | Typescript Practice
 
-# Property Listing Website
+# Couch Surfing Website
 
 A web application that displays a list of properties, reviews, and allows users to interact with various elements such as getting reviews and viewing recommended properties.
 
