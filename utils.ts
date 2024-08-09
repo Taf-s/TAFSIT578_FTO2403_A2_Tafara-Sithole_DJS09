@@ -5,32 +5,48 @@ import { LoyaltyUser, Permissions } from './enums'
 import { Review } from './interfaces'
 
 export function showReviewTotal(value: number, reviewer: string, isLoyalty: LoyaltyUser) {
-    const iconDisplay = LoyaltyUser.GOLD_USER ? '⭐' : ''
-    reviewTotalDisplay.innerHTML = value.toString() + ' review' + makeMultiple(value) + ' | last reviewed by ' + reviewer + ' ' + iconDisplay    
+    const iconDisplay = isLoyalty === LoyaltyUser.GOLD_USER ? '⭐' : '';
+    const reviewTotalDisplayElement = document.querySelector('#reviews');
+    if (reviewTotalDisplayElement) {
+        reviewTotalDisplayElement.innerHTML = value.toString() + ' review' + makeMultiple(value) + ' | last reviewed by ' + reviewer + ' ' + iconDisplay;
+    } else {
+        console.error('Element with id "reviews" not found in the DOM.');
+    }
 }
 
 export function populateUser(isReturning : boolean, userName: string ) {
-    if (isReturning){
-        returningUserDisplay.innerHTML = 'back'
+    const returningUserDisplayElement = document.querySelector('#returning-user');
+    const userNameDisplayElement = document.querySelector('#user');
+    if (returningUserDisplayElement && userNameDisplayElement) {
+        returningUserDisplayElement.innerHTML = isReturning ? 'back' : '';
+        userNameDisplayElement.innerHTML = userName;
+    } else {
+        console.error('Element with id "returning-user" or "user" not found in the DOM.');
     }
-    userNameDisplay.innerHTML = userName
 }
 
 export function showDetails(value: boolean | Permissions, element : HTMLDivElement, price: number) {
-    if (value) {
-        const priceDisplay = document.createElement('div')
-        priceDisplay.innerHTML = price.toString() + '/night'
-        element.appendChild(priceDisplay)
+    if (element) {
+        const priceDisplay = document.createElement('div');
+        if (typeof value === 'boolean' && value) {
+            priceDisplay.innerHTML = price.toString() + '/night';
+            element.appendChild(priceDisplay);
+        }
+    } else {
+        console.error('Element is null.');
     }
 }
 
 export function makeMultiple(value: number) : string {
-    if (value > 1 || value == 0) {
-        return 's'
-    } else return ''
+    return value > 1 || value === 0 ? 's' : '';
 }
 
 export function getTopTwoReviews(reviews : Review[]) : Review[]  {
- const sortedReviews = reviews.sort((a, b) => b.stars - a.stars)
- return sortedReviews.slice(0,2)
+    if (Array.isArray(reviews)) {
+        const sortedReviews = [...reviews].sort((a, b) => b.stars - a.stars);
+        return sortedReviews.slice(0,2);
+    } else {
+        console.error('Reviews is not an array.');
+        return [];
+    }
 }
