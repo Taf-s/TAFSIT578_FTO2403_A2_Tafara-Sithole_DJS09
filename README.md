@@ -1,5 +1,9 @@
 # DJS09: Couch Surfing | Typescript Practice
 
+# Loom Video 
+
+https://www.loom.com/share/dbda16a01cbe44c5b3e3245f6c41044d?sid=fb9dc3f3-27f7-42f0-8fff-476f44734622
+
 # Couch Surfing Website
 
 A web application that displays a list of properties, reviews, and allows users to interact with various elements such as getting reviews and viewing recommended properties.
